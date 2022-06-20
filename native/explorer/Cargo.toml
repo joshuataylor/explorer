@@ -7,7 +7,7 @@ edition = "2018"
 [lib]
 name = "explorer"
 path = "src/lib.rs"
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 anyhow = "1"

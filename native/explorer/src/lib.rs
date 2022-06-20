@@ -20,6 +20,7 @@ mod datatypes;
 mod error;
 mod lazyframe;
 mod series;
+mod snowflake_polars;
 
 use dataframe::*;
 pub use datatypes::{
@@ -162,6 +163,7 @@ rustler::init!(
         s_unordered_distinct,
         s_var,
         s_value_counts,
+        df_read_snowflake_arrow
     ],
     load = on_load
 );

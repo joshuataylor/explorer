@@ -3,10 +3,12 @@ use polars::prelude::*;
 use std::fs::File;
 use std::io::BufReader;
 use std::result::Result;
+use rustler::Binary;
 
 use crate::series::{to_ex_series_collection, to_series_collection};
 
 use crate::{ExDataFrame, ExLazyFrame, ExSeries, ExplorerError};
+use crate::snowflake_polars::ipc_binary_to_dataframe;
 
 #[rustler::nif(schedule = "DirtyIo")]
 #[allow(clippy::too_many_arguments)]
@@ -131,6 +133,12 @@ pub fn df_read_ipc(
         .with_columns(columns)
         .with_projection(projection)
         .finish()?;
+    Ok(ExDataFrame::new(df))
+}
+
+#[rustler::nif(schedule = "DirtyIo")]
+pub fn df_read_snowflake_arrow(arrow_stream_data: Binary) -> Result<ExDataFrame, ExplorerError> {
+    let df = ipc_binary_to_dataframe(&mut arrow_stream_data.as_ref()).unwrap();
     Ok(ExDataFrame::new(df))
 }
 

@@ -46,6 +46,8 @@ defmodule Explorer.Backend.DataFrame do
   @callback to_ipc(df, filename :: String.t(), compression :: String.t()) ::
               result(String.t())
 
+  @callback from_snowflake_arrow(binary :: binary) :: result(df)
+
   @callback from_ndjson(
               filename :: String.t(),
               infer_schema_length :: integer(),

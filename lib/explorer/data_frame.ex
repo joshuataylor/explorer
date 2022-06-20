@@ -418,6 +418,33 @@ defmodule Explorer.DataFrame do
   end
 
   @doc """
+  Reads a Snowflake streaming arrow file.
+
+  ## Options
+
+    * `columns` - List with the name or index of columns to be selected. Defaults to all columns.
+  """
+  @doc type: :io
+  @spec from_snowflake_arrow(binary) :: {:ok, DataFrame.t()} | {:error, term()}
+  def from_snowflake_arrow(binary, opts \\ []) do
+    backend = backend_from_options!([])
+
+    backend.from_snowflake_arrow(binary)
+  end
+
+  @doc """
+  Similar to `from_ipc/2` but raises if there is a problem reading the IPC file.
+  """
+  @doc type: :io
+  @spec from_snowflake_arrow!(binary :: binary) :: DataFrame.t()
+  def from_snowflake_arrow!(binary) do
+    case from_snowflake_arrow(binary) do
+      {:ok, df} -> df
+      {:error, error} -> raise "#{error}"
+    end
+  end
+
+  @doc """
   Writes a dataframe to a delimited file.
 
   ## Options

@@ -76,6 +76,7 @@ defmodule Explorer.PolarsBackend.Native do
   def df_pivot_wider(_df, _id_columns, _pivot_column, _values_column), do: err()
   def df_read_ipc(_filename, _columns, _projection), do: err()
   def df_read_parquet(_filename), do: err()
+  def df_read_snowflake_arrow(_binary), do: err()
   def df_select(_df, _selection), do: err()
   def df_select_at_idx(_df, _idx), do: err()
   def df_set_column_names(_df, _names), do: err()

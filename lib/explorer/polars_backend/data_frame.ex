@@ -125,6 +125,14 @@ defmodule Explorer.PolarsBackend.DataFrame do
   end
 
   @impl true
+  def from_snowflake_arrow(binary) do
+    case Native.df_read_snowflake_arrow(binary) do
+      {:ok, df} -> {:ok, Shared.create_dataframe(df)}
+      {:error, error} -> {:error, error}
+    end
+  end
+
+  @impl true
   def to_parquet(%DataFrame{data: df}, filename) do
     case Native.df_write_parquet(df, filename) do
       {:ok, _} -> {:ok, filename}
