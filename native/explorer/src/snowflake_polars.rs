@@ -90,7 +90,7 @@ pub fn ipc_binary_to_dataframe<R: Read>(arrow_data: &mut R) -> PolarsResult<Data
                 }
             }
             dt => {
-                println!("{:?}", dt);
+                // println!("{:?}", dt);
             }
         }
     }
